@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>오르골 꿈나라 수비대 — 화풍 시안 5종</title>
+  <style>
+    :root {
+      --bg: #121526;
+      --card: #1d223b;
+      --border: #313963;
+      --accent: #ffd972;
+      --text: #f5f6fc;
+      --muted: #b6bddb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 48px;
+    }
+    header {
+      padding: 20px 16px 12px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 6px;
+      color: var(--accent);
+    }
+    .sub {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(18, 21, 38, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .nav a, .nav button {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+    .nav button.active {
+      background: var(--accent);
+      color: #1a1c2c;
+      border-color: var(--accent);
+    }
+    main {
+      max-width: 920px;
+      margin: 16px auto 0;
+      padding: 0 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    main.grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (min-width: 720px) {
+      main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      scroll-margin-top: 64px;
+    }
+    .badge-row {
+      padding: 12px 14px 10px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0;
+    }
+    main.grid2 .title { font-size: 14px; }
+    .tag {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #2b3257;
+      color: #dce1ff;
+      white-space: nowrap;
+    }
+    .img-wrap {
+      display: block;
+      background: #0d1020;
+    }
+    .img-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+    }
+    .desc {
+      padding: 12px 14px 14px;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+    main.grid2 .desc {
+      font-size: 12px;
+      padding: 8px 10px 10px;
+    }
+    .desc p { margin: 0 0 6px; }
+    .desc p:last-child { margin-bottom: 0; color: var(--muted); }
+    .tip {
+      max-width: 920px;
+      margin: 22px auto 0;
+      padding: 14px 16px;
+      background: #1a2140;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .tip strong { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>오르골 꿈나라 수비대 — 화풍 시안 5종</h1>
+    <p class="sub">실제 게임 화면 구성(상단 하트·별빛 / 중앙 6칸 회전판·곰·병정·토끼 / 하단 카드 3장+자장가) 기준 세로 시안입니다. 이미지를 누르면 원본 크기로 열립니다.</p>
+  </header>
+
+  <div class="nav">
+    <button id="toggleGrid" type="button">2열 한눈에 비교</button>
+    <a href="#s1">1. 매트 3D</a>
+    <a href="#s2">2. 벡터 카툰</a>
+    <a href="#s3">3. 동화책 과슈</a>
+    <a href="#s4">4. 펠트·원목</a>
+    <a href="#s5">5. 토이+외곽선</a>
+  </div>
+
+  <main id="gallery">
+    <article class="item" id="s1">
+      <div class="badge-row">
+        <h2 class="title">1번 · 매트 3D 클레이·피규어풍</h2>
+        <span class="tag">난이도 중~상</span>
+      </div>
+      <a class="img-wrap" href="./01_matte_3d_clay.jpg" target="_blank" rel="noopener">
+        <img src="./01_matte_3d_clay.jpg" alt="시안 1 매트 3D 클레이풍" loading="eager" />
+      </a>
+      <div class="desc">
+        <p>무광 점토·바이닐 피규어와 나무·황동 오르골 질감, 포근한 미니어처 조명 스타일.</p>
+        <p>프리렌더 2D 이미지로 구우면 Godot 2D에서도 가볍게 구동 가능. 스토어 첫인상 흡입력 최상.</p>
+      </div>
+    </article>
+
+    <article class="item" id="s2">
+      <div class="badge-row">
+        <h2 class="title">2번 · 굵은 외곽선 파스텔 벡터 카툰풍</h2>
+        <span class="tag">난이도 하(가장 빠름)</span>
+      </div>
+      <a class="img-wrap" href="./02_vector_cartoon.jpg" target="_blank" rel="noopener">
+        <img src="./02_vector_cartoon.jpg" alt="시안 2 벡터 카툰풍" loading="eager" />
+      </a>
+      <div class="desc">
+        <p>따뜻한 코코아·진남색 둥근 외곽선과 파스텔 채색의 경쾌한 2D 카툰 스타일.</p>
+        <p>작은 폰 화면 가독성 최상, 파츠 애니메이션·이펙트 제작 속도가 가장 빠름.</p>
+      </div>
+    </article>
+
+    <article class="item" id="s3">
+      <div class="badge-row">
+        <h2 class="title">3번 · 동화책 과슈 &amp; 색연필 일러스트풍</h2>
+        <span class="tag">난이도 중</span>
+      </div>
+      <a class="img-wrap" href="./03_storybook_gouache.jpg" target="_blank" rel="noopener">
+        <img src="./03_storybook_gouache.jpg" alt="시안 3 동화책 과슈풍" loading="lazy" />
+      </a>
+      <div class="desc">
+        <p>종이 질감 위에 매트한 과슈 물감과 색연필 터치, 앤티크 황동 태엽을 살린 잠자리 그림책 감성.</p>
+        <p>유아용 클립아트처럼 보이지 않는 서정적인 인디 게임 인상에 강점.</p>
+      </div>
+    </article>
+
+    <article class="item" id="s4">
+      <div class="badge-row">
+        <h2 class="title">4번 · 양모 펠트 &amp; 원목 공예 디오라마풍</h2>
+        <span class="tag">난이도 중~상</span>
+      </div>
+      <a class="img-wrap" href="./04_felt_diorama.jpg" target="_blank" rel="noopener">
+        <img src="./04_felt_diorama.jpg" alt="시안 4 펠트 원목 공예풍" loading="lazy" />
+      </a>
+      <div class="desc">
+        <p>바느질 스티치가 보이는 펠트 인형, 깎아 만든 나무 원판, 털실 먼지 괴물, 천 가격표 카드.</p>
+        <p>손으로 만질 듯한 아기자기함이 특징. 하단 '천 태그 카드' 디자인만 다른 시안에 섞어도 좋음.</p>
+      </div>
+    </article>
+
+    <article class="item" id="s5">
+      <div class="badge-row">
+        <h2 class="title">5번 · 매트 토이 볼륨 + 카툰 외곽선</h2>
+        <span class="tag">난이도 중(추천 타협점)</span>
+      </div>
+      <a class="img-wrap" href="./05_hybrid_cel_toy.jpg" target="_blank" rel="noopener">
+        <img src="./05_hybrid_cel_toy.jpg" alt="시안 5 매트 토이 외곽선 하이브리드" loading="lazy" />
+      </a>
+      <div class="desc">
+        <p>1번의 통통한 매트 입체감·조명과 2번의 깔끔한 브라운 외곽선을 절충한 2.5D 토이박스 스타일.</p>
+        <p>"2D는 너무 납작하고 풀 3D는 무겁다" 싶을 때 입체감과 선명도를 동시에 잡는 실용적 시안.</p>
+      </div>
+    </article>
+  </main>
+
+  <div style="padding: 0 14px;">
+    <div class="tip">
+      <strong>선택 팁:</strong> 단일 번호(1~5번)로 골라주셔도 되고, <em>"캐릭터·외곽선은 5번인데 오르골 나무 질감·하단 카드 태그는 4번처럼"</em> 같이 조합해서 말씀해 주셔도 됩니다.
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('toggleGrid');
+    const gallery = document.getElementById('gallery');
+    btn.addEventListener('click', () => {
+      const on = gallery.classList.toggle('grid2');
+      btn.classList.toggle('active', on);
+      btn.textContent = on ? '1열 크게 보기' : '2열 한눈에 비교';
+    });
+  </script>
+</body>
+</html>
