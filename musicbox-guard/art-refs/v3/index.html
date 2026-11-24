@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>별빛 오르골 공방 — v3 차세대 그래픽 전면 개편 시안 (Before vs After)</title>
+  <style>
+    :root {
+      --bg: #121526;
+      --card: #1d223b;
+      --border: #313963;
+      --accent: #ffd972;
+      --text: #f5f6fc;
+      --muted: #b6bddb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 48px;
+    }
+    header {
+      padding: 20px 16px 12px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 20px; margin: 0 0 6px; color: var(--accent); }
+    .sub { margin: 0; font-size: 14px; color: var(--muted); }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(18, 21, 38, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .nav a, .nav button {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+    .nav button.active {
+      background: var(--accent);
+      color: #1a1c2c;
+      border-color: var(--accent);
+    }
+    main {
+      max-width: 960px;
+      margin: 16px auto 0;
+      padding: 0 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    main.grid2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (min-width: 720px) {
+      main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      scroll-margin-top: 64px;
+    }
+    .badge-row {
+      padding: 12px 14px 10px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .title { font-size: 16px; font-weight: 700; color: var(--accent); margin: 0; }
+    main.grid2 .title { font-size: 14px; }
+    .tag {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #2b3257;
+      color: #dce1ff;
+      white-space: nowrap;
+    }
+    .img-wrap { display: block; background: #0d1020; }
+    .img-wrap img { display: block; width: 100%; height: auto; }
+    .desc { padding: 12px 14px 14px; font-size: 13.5px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>별빛 오르골 공방 — v3 차세대 그래픽 개편 시안</h1>
+    <p class="sub">3/4 쿼터뷰 입체 오르골 디오라마 + 고밀도 에셋 + 라이팅/블룸 셰이더 + 무텍스트 모던 UI</p>
+  </header>
+  <div class="nav">
+    <button id="btn1" class="active" onclick="setMode(false)">1열 크게 보기</button>
+    <button id="btn2" onclick="setMode(true)">2열 나란히 비교</button>
+    <a href="#optA">시안 A (매트 피규어)</a>
+    <a href="#optB">시안 B (잉크라인+글래스)</a>
+    <a href="#optC">로비 C (원목 트레이)</a>
+    <a href="#before">현재 화면 (Before)</a>
+  </div>
+  <main id="grid">
+    <section class="item" id="optA">
+      <div class="badge-row">
+        <h2 class="title">인게임 시안 A · 매트 비닐 피규어 &amp; 크림 UI</h2>
+        <span class="tag">시안 1 정통 계승 ★추천</span>
+      </div>
+      <div class="img-wrap"><img src="v3_ingame_matte_diorama.jpg" alt="인게임 시안 A" /></div>
+      <div class="desc">3/4 타원 원근으로 두툼한 호두나무·황동 기어 오르골 옆면 두께 노출, 창가 달빛 God-ray·촛불 블룸·배경 보케 적용. 하단은 글자 없는 1줄 4카드(피규어 3 + 종 스킬 1) 구조.</div>
+    </section>
+
+    <section class="item" id="optB">
+      <div class="badge-row">
+        <h2 class="title">인게임 시안 B · 소프트 잉크 외곽선 &amp; 다크 글래스 UI</h2>
+        <span class="tag">시안 1+5 하이브리드</span>
+      </div>
+      <div class="img-wrap"><img src="v3_ingame_stylized_ink.jpg" alt="인게임 시안 B" /></div>
+      <div class="desc">통통한 입체감 위에 섬세한 다크 브라운 잉크 외곽선을 얹어 작은 폰 화면 시인성을 극대화하고, 반투명 프로스티드 다크 글래스 &amp; 골드 테두리 UI를 결합한 모던 인디 스타일.</div>
+    </section>
+
+    <section class="item" id="optC">
+      <div class="badge-row">
+        <h2 class="title">로비 시안 C · 오픈 디오라마 &amp; 원목 피규어 트레이</h2>
+        <span class="tag">숙제형 메뉴판 탈피 ★추천</span>
+      </div>
+      <div class="img-wrap"><img src="v3_lobby_diorama_ui.jpg" alt="로비 시안 C" /></div>
+      <div class="desc">답답한 네모 텍스트 상자 대신 상단 55%에 살아 숨 쉬는 공방 오르골과 선반 수집품을 훤히 보여주고, 하단 조각 원목 보관함에서 3카드 출전/대기 피규어를 직관적으로 고르는 로비.</div>
+    </section>
+
+    <section class="item" id="before">
+      <div class="badge-row">
+        <h2 class="title">현재 빌드 (Before · build 4412831)</h2>
+        <span class="tag">90° 평면 보드 비교용</span>
+      </div>
+      <div class="img-wrap"><img src="../04_art_showcase.png" alt="현재 빌드 비교" /></div>
+      <div class="desc">90° 수직 다트판 구도 + 수식 도형 에셋 + 3줄 텍스트 박스 카드 구조 (개편 전 비교용).</div>
+    </section>
+  </main>
+  <script>
+    function setMode(two) {
+      document.getElementById('grid').className = two ? 'grid2' : '';
+      document.getElementById('btn1').className = two ? '' : 'active';
+      document.getElementById('btn2').className = two ? 'active' : '';
+    }
+  </script>
+</body>
+</html>
