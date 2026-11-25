@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<meta name="description" content="따스한 달빛 장인의 공방에서 6칸 태엽 오르골을 돌려 잠든 아기 동물을 지키는 디오라마 덱 디펜스">
+		<meta name="description" content="달빛 비치는 아이방 협탁 위, 6칸 태엽 오르골을 돌려 자장가 꿈구슬의 단잠을 지키는 디오라마 덱 디펜스">
 		<meta name="theme-color" content="#261710">
 		<meta property="og:type" content="website">
 		<meta property="og:locale" content="ko_KR">
 		<meta property="og:title" content="별빛 오르골 공방 — 태엽 오르골 회전 디펜스">
-		<meta property="og:description" content="따스한 달빛 장인의 공방에서 6칸 태엽 오르골을 돌려 잠든 아기 동물을 지키는 디오라마 덱 디펜스">
+		<meta property="og:description" content="달빛 비치는 아이방 협탁 위, 6칸 태엽 오르골을 돌려 자장가 꿈구슬의 단잠을 지키는 디오라마 덱 디펜스">
 		<meta property="og:url" content="https://ofheesun.github.io/zestward-play/musicbox-guard/">
 		<meta property="og:image" content="https://ofheesun.github.io/zestward-play/musicbox-guard/og-cover.png">
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:title" content="별빛 오르골 공방 — 태엽 오르골 회전 디펜스">
-		<meta name="twitter:description" content="따스한 달빛 장인의 공방에서 6칸 태엽 오르골을 돌려 잠든 아기 동물을 지키는 디오라마 덱 디펜스">
+		<meta name="twitter:description" content="달빛 비치는 아이방 협탁 위, 6칸 태엽 오르골을 돌려 자장가 꿈구슬의 단잠을 지키는 디오라마 덱 디펜스">
 		<meta name="twitter:image" content="https://ofheesun.github.io/zestward-play/musicbox-guard/og-cover.png">
 		<style>#mbg-boot-title{color:#ffefc2;font:700 20px/1.4 sans-serif;letter-spacing:0.04em;margin-bottom:14px;text-align:center;}#status-progress{accent-color:#e8982a;width:min(68vw,280px);height:10px;}</style>
-		<script>(function(){try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch(_){}var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;var ctxs=[],unlocked=false;function PatchedAC(opts){var c=opts!==undefined?new AC(opts):new AC();ctxs.push(c);return c;}PatchedAC.prototype=AC.prototype;Object.setPrototypeOf(PatchedAC,AC);window.AudioContext=PatchedAC;if(window.webkitAudioContext)window.webkitAudioContext=PatchedAC;function resumeAll(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(_){}for(var i=0;i<ctxs.length;i++){var c=ctxs[i];if(!c||c.state==='closed')continue;if(c.state!=='running'){try{c.resume();}catch(_){}}if(!unlocked){try{var b=c.createBuffer(1,1,22050),s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.start(0);unlocked=true;}catch(_){}}}}['pointerdown','pointerup','touchend','click','keydown'].forEach(function(ev){window.addEventListener(ev,resumeAll,{capture:true,passive:true});});document.addEventListener('visibilitychange',function(){if(!document.hidden&&unlocked)resumeAll();});})();</script>
+		<script>(function(){try{var q=new URLSearchParams(location.search).get('lang')||'',nl=(q||navigator.language||'en').toLowerCase(),ko=nl.indexOf('ko')===0;document.documentElement.lang=ko?'ko':'en';window.addEventListener('DOMContentLoaded',function(){var el=document.getElementById('mbg-boot-title');if(el)el.textContent=ko?'★ 별빛 오르골 공방 준비 중…':'★ Loading Starlight Musicbox…';});}catch(_){}try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch(_){}var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;var ctxs=[],unlocked=false;function PatchedAC(opts){var c=opts!==undefined?new AC(opts):new AC();ctxs.push(c);return c;}PatchedAC.prototype=AC.prototype;Object.setPrototypeOf(PatchedAC,AC);window.AudioContext=PatchedAC;if(window.webkitAudioContext)window.webkitAudioContext=PatchedAC;function resumeAll(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(_){}for(var i=0;i<ctxs.length;i++){var c=ctxs[i];if(!c||c.state==='closed')continue;if(c.state!=='running'){try{c.resume();}catch(_){}}if(!unlocked){try{var b=c.createBuffer(1,1,22050),s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.start(0);unlocked=true;}catch(_){}}}}['pointerdown','pointerup','touchend','click','keydown'].forEach(function(ev){window.addEventListener(ev,resumeAll,{capture:true,passive:true});});document.addEventListener('visibilitychange',function(){if(!document.hidden&&unlocked)resumeAll();});})();</script>
 		<title>Starlight Musicbox</title>
 		<style>
 html, body, #canvas {
@@ -121,13 +121,13 @@ body {
 
 		<div id="status">
 			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
-			<div id="mbg-boot-title">★ 별빛 오르골 공방 준비 중…</div><progress id="status-progress"></progress>
+			<div id="mbg-boot-title">★ Starlight Musicbox · 별빛 오르골 공방</div><progress id="status-progress"></progress>
 			<div id="status-notice"></div>
 		</div>
 
 		<script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":24288180,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":24274556,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
