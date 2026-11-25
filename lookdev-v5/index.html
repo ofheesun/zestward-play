@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zestward Godot 4.7 신작 비주얼 & 구형 상태창 HUD 시안 보드</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #080a0f;
+      color: #ede5d5;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif;
+      line-height: 1.55;
+      padding: 20px 16px 56px;
+    }
+    .wrap { max-width: 1280px; margin: 0 auto; }
+    header {
+      border-bottom: 1px solid #4a3c28;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .badge {
+      display: inline-block;
+      background: #1d1812;
+      color: #f4d692;
+      border: 1px solid #9a7d4e;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      margin-bottom: 8px;
+    }
+    h1 { font-size: clamp(20px, 3vw, 28px); color: #f4d692; letter-spacing: -0.02em; }
+    .sub { color: #b8b2a6; font-size: 14px; margin-top: 6px; }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .tab-btn {
+      background: #131720;
+      color: #c8c1b4;
+      border: 1px solid #353b4a;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .tab-btn:hover { border-color: #9a7d4e; color: #fff; }
+    .tab-btn.active {
+      background: #282015;
+      color: #f4d692;
+      border-color: #d8b878;
+      box-shadow: 0 0 0 1px #d8b878 inset;
+    }
+    .viewer {
+      background: #10131b;
+      border: 1px solid #4a3c28;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65);
+    }
+    .viewer img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .meta {
+      padding: 18px 20px;
+      border-top: 1px solid #262b38;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 820px) {
+      .meta { grid-template-columns: 2fr 1fr; }
+    }
+    .meta h2 { font-size: 18px; color: #f4d692; margin-bottom: 6px; }
+    .meta p { font-size: 14px; color: #d5cfc3; }
+    .ratio-box {
+      background: #0b0e14;
+      border: 1px solid #2b3140;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .ratio-title { font-size: 12px; color: #b8b2a6; margin-bottom: 8px; font-weight: 700; }
+    .bar { display: flex; height: 18px; border-radius: 4px; overflow: hidden; border: 1px solid #3b4254; }
+    .sw-labels { display: flex; justify-content: space-between; font-size: 11px; color: #b8b2a6; margin-top: 6px; }
+    .grid-all {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+    }
+    .thumb-card {
+      background: #11151e;
+      border: 1px solid #2c3242;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .thumb-card:hover { border-color: #d8b878; }
+    .thumb-card img { width: 100%; display: block; }
+    .thumb-card div { padding: 10px 12px; font-size: 13px; font-weight: 700; color: #e8dec8; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">Zestward Studio OS v4.4 · Godot 4.7.2 실기 렌더링 시안</span>
+      <h1>디아블로 · PoE 감성 신작(방향 ②) 비주얼 기법 & 구형 상태창 HUD 시안 보드</h1>
+      <p class="sub">가짜 상상도가 아니라 실제 Godot 4.7.2 엔진(1920×1080)에서 직접 셰이더를 구동해 캡처한 100% 구현 보장 시안입니다. (휴대폰·PC 24시간 영구 열람 지원)</p>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="selectSlide(0)">시안 A [추천] · 다크 그래픽 노블 먹선 2.5D</button>
+      <button class="tab-btn" onclick="selectSlide(1)">시안 B · 정통 디아블로·PoE 젖은 석판 PBR</button>
+      <button class="tab-btn" onclick="selectSlide(2)">시안 C · 고딕 동판화 에칭(빗금) 콘트라스트</button>
+      <button class="tab-btn" onclick="selectSlide(3)">시그니처 · 보호막+체력 구형 HUD 3안 비교</button>
+    </div>
+
+    <div class="viewer">
+      <img id="main-img" src="style_a.webp" alt="Godot 4.7 Lookdev" />
+      <div class="meta">
+        <div>
+          <h2 id="slide-title"></h2>
+          <p id="slide-desc"></p>
+        </div>
+        <div class="ratio-box">
+          <div class="ratio-title">색상 면적 비율 (60 : 30 : 10 Rule)</div>
+          <div class="bar" id="ratio-bar"></div>
+          <div class="sw-labels" id="ratio-labels"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-all">
+      <div class="thumb-card" onclick="selectSlide(0)">
+        <img src="style_a.webp" alt="시안 A" />
+        <div>시안 A [추천] — 다크 그래픽 노블 먹선 2.5D + HUD Ⅰ안</div>
+      </div>
+      <div class="thumb-card" onclick="selectSlide(1)">
+        <img src="style_b.webp" alt="시안 B" />
+        <div>시안 B — 정통 암흑 광원 & 젖은 석판 PBR + HUD Ⅱ안</div>
+      </div>
+      <div class="thumb-card" onclick="selectSlide(2)">
+        <img src="style_c.webp" alt="시안 C" />
+        <div>시안 C — 고딕 동판화 에칭 & 선혈 콘트라스트 + HUD Ⅲ안</div>
+      </div>
+      <div class="thumb-card" onclick="selectSlide(3)">
+        <img src="globe_trio.webp" alt="구형 HUD 3안" />
+        <div>시그니처 특집 — 보호막+체력 구형 상태창 HUD 3종 클로즈업</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SLIDES = [
+      {
+        src: "style_a.webp",
+        title: "시안 A [추천 1순위] — 다크 그래픽 노블 2.5D 먹선 카툰 + 3D 물리 던전",
+        desc: "3D 입체 기둥·석판에 Inverted Hull 칠흑 먹선과 3단 셀 명암(차가운 청회색 암부 vs 따뜻한 화톳불 난색)을 입히고, 고밀도 유화·벡터 원화 액터와 사실적인 고딕 UI를 결합한 기법입니다. 소·중·대형 몬스터 실루엣 식별력, 물리 넉백 타격감, 금화·빛기둥 도파민 대비가 3안 중 가장 뛰어납니다.",
+        colors: [["#121622", "60% 청회색 현무암 암부"], ["#4A3B2A", "30% 고딕 석재·청동 UI"], ["#E6A832", "10% 선혈·보호막·빛기둥"]]
+      },
+      {
+        src: "style_b.webp",
+        title: "시안 B — 정통 디아블로·PoE 암흑 광원 & 젖은 석판 PBR 2.5D",
+        desc: "만화적인 외곽선을 완전히 제거하고, 디아블로 2 레저렉션·PoE 스타일의 국소 횃불 시야 반경(Light-Radius)과 젖은 석판 물웅덩이 정반사(Roughness 변주)로 축축하고 음습한 지하 성당 공기감을 극대화한 기법입니다. 사실적인 유화 초상화·고딕 금속 프레임과 가장 중후하게 어우러집니다.",
+        colors: [["#090B10", "60% 심연 암조·안개"], ["#3A2E22", "30% 젖은 석판·흑철 UI"], ["#FFD269", "10% 횃불·생명액·빛기둥"]]
+      },
+      {
+        src: "style_c.webp",
+        title: "시안 C — 고딕 동판화 에칭(빗금 음영) & 선혈·황금 콘트라스트 2.5D",
+        desc: "중세 판화·금서 삽화처럼 배경과 암부에 세밀한 크로스해칭(빗금 음영) 셰이더를 깔아 채도를 극도로 억제하고, 오직 선혈 검기·보호막·금화 자석 스트림·디바인 빛기둥만 순수 고채도로 폭발시키는 독창적 다크 판타지 화풍입니다.",
+        colors: [["#161517", "60% 동판화 먹빛 암부"], ["#5A5246", "30% 회갈색 석각·양피지"], ["#D91E26", "10% 선혈·순금 하이라이트"]]
+      },
+      {
+        src: "globe_trio.webp",
+        title: "시그니처 특집 — ‘보호막 + 체력 구형 상태창 HUD’ Godot 4.7 실시간 셰이더 3안 비교",
+        desc: "가장 공들이신 구형 상태창 HUD를 새 프로젝트에서도 핵심 정체성으로 계승·진화시키기 위한 3가지 실시간 셰이더 구조입니다. (Ⅰ안: 내부 진홍 구체 + 외곽 초승달 아크 / Ⅱ안: 좌우 반구 수직 분할 / Ⅲ안: 진홍 구체 위를 덮는 파괴형 육각 청색 결정 돔)",
+        colors: [["#0E121A", "60% 유리 구체 내부 암실"], ["#8C7148", "30% 고딕 성물함 조각테"], ["#C81D25", "10% 진홍 생명액·청광 실드"]]
+      }
+    ];
+
+    function selectSlide(idx) {
+      const s = SLIDES[idx];
+      document.getElementById("main-img").src = s.src;
+      document.getElementById("slide-title").textContent = s.title;
+      document.getElementById("slide-desc").textContent = s.desc;
+      document.querySelectorAll(".tab-btn").forEach((b, i) => b.classList.toggle("active", i === idx));
+      const bar = document.getElementById("ratio-bar");
+      bar.innerHTML = `
+        <div style="width:60%;background:${s.colors[0][0]}"></div>
+        <div style="width:30%;background:${s.colors[1][0]}"></div>
+        <div style="width:10%;background:${s.colors[2][0]}"></div>
+      `;
+      document.getElementById("ratio-labels").innerHTML = s.colors.map(c => `<span>${c[1]}</span>`).join("");
+    }
+    selectSlide(0);
+  </script>
+</body>
+</html>
