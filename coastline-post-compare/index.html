@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>해안 우편정 (Coastline Post) — 참고시안 vs v6.2 vs v7.2 실제 플레이 & 1:1 비교 랩</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #081019; color: #eaf2f9;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    display: flex; flex-direction: column;
+  }
+  .topbar {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 8px; padding: 8px 14px; background: #0e1a28; border-bottom: 1px solid #213852;
+    z-index: 20;
+  }
+  .brand { font-size: 13.5px; font-weight: 700; color: #ffd882; white-space: nowrap; }
+  .modes, .tools { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  button {
+    background: #17283c; color: #cfe2f4; border: 1px solid #2c4969; border-radius: 999px;
+    padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.14s;
+  }
+  button:hover { border-color: #67b8f7; color: #fff; }
+  button.active { background: #2374b5; color: #fff; border-color: #84d0ff; box-shadow: 0 0 10px rgba(35,116,181,0.45); }
+  button.gold { background: #3a2d14; color: #ffe094; border-color: #8f6e2a; }
+  button.gold:hover, button.gold.active { background: #7a5818; color: #fff; border-color: #ffd882; }
+  .ctrl-group {
+    display: flex; align-items: center; gap: 6px; background: #122031;
+    border: 1px solid #243b55; border-radius: 999px; padding: 3px 10px; font-size: 11.5px; color: #b7cfe6;
+  }
+  .ctrl-group input[type="range"] { width: 88px; accent-color: #ffd882; cursor: pointer; }
+  .workspace {
+    flex: 1; position: relative; width: 100%; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at center, #0e1d2e 0%, #060b12 100%); overflow: hidden; padding: 8px;
+  }
+  .stage-wrap {
+    position: relative; width: min(100%, calc((100vh - 94px) * 16 / 9)); aspect-ratio: 16 / 9;
+    background: #0a1622; border-radius: 10px; border: 1px solid #27415e; overflow: hidden;
+    box-shadow: 0 14px 38px rgba(0,0,0,0.65);
+  }
+  .stage-wrap.dual {
+    width: 100%; height: 100%; aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    background: transparent; border: none; box-shadow: none;
+  }
+  .pane {
+    position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; pointer-events: none;
+  }
+  .pane.visible { visibility: visible; pointer-events: auto; }
+  .stage-wrap.dual .pane.dual-item {
+    position: relative; inset: auto; visibility: visible; pointer-events: auto;
+    border-radius: 10px; border: 1px solid #2b4766; overflow: hidden; background: #0a1622;
+    aspect-ratio: 16 / 9; align-self: center; width: 100%; height: auto;
+  }
+  iframe { width: 100%; height: 100%; border: 0; display: block; background: #0d2b42; }
+  .ref-view {
+    width: 100%; height: 100%; object-fit: contain; display: block; background: #070e16;
+    transition: transform 0.2s ease; cursor: zoom-in;
+  }
+  .ref-view.zoomed { transform: scale(1.85); cursor: zoom-out; }
+  .ghost-overlay {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+    pointer-events: none; z-index: 12; opacity: 0; transition: opacity 0.08s;
+  }
+  .badge {
+    position: absolute; bottom: 10px; left: 12px; z-index: 14; pointer-events: none;
+    background: rgba(7, 15, 25, 0.78); border: 1px solid rgba(255,255,255,0.2);
+    color: #9ad8ff; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700;
+  }
+  .badge.gold-b { color: #ffd882; }
+  .footer {
+    padding: 5px 14px; background: #0a131e; border-top: 1px solid #1a2d42;
+    font-size: 11.5px; color: #90acc6; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">⚓ 해안 우편정 — 실제 플레이 & 3자 비교 랩</div>
+    <div class="modes">
+      <button id="btn-ref" onclick="setMode('ref')">① 참고시안 (Option B)</button>
+      <button id="btn-v62" onclick="setMode('v62')">② v6.2 실제 플레이</button>
+      <button id="btn-v72" class="active" onclick="setMode('v72')">③ v7.2 사실적 3D 플레이</button>
+      <button id="btn-dual" onclick="setMode('dual')">④ v6.2 vs v7.2 동시 화면</button>
+    </div>
+    <div class="tools">
+      <div class="ctrl-group" title="플레이 화면 위에 참고시안(Option B)을 반투명하게 겹쳐 실시간 비교합니다 (조작 그대로 가능)">
+        <span>시안 겹침</span>
+        <input type="range" id="ghost-slider" min="0" max="100" value="0" oninput="updateGhost(this.value)">
+        <span id="ghost-val">0%</span>
+      </div>
+      <button class="gold" onclick="snapBothHero()" title="우편정·카메라·파도를 확정 시안과 동일한 구도로 즉시 정렬합니다 (단축키 H)">🎯 시안 구도 스냅</button>
+      <button onclick="resumeBoth()">▶ 항해 출항</button>
+      <button onclick="toggleLang()" id="btn-lang">KO / EN</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <div class="stage-wrap" id="stage-wrap">
+      <div class="pane" id="pane-ref">
+        <img src="./option_b.jpg" alt="Option B Reference" class="ref-view" id="ref-img" onclick="this.classList.toggle('zoomed')">
+        <span class="badge gold-b">① 확정 참고시안 (Option B 원화 — 클릭 시 1.85x 확대)</span>
+      </div>
+
+      <div class="pane" id="pane-v62">
+        <iframe id="frame-v62" data-src="../coastline-post-v62/index.html?lookdev=1&lang=ko" allow="autoplay; fullscreen"></iframe>
+        <span class="badge">② 직전 v6.2 (Godot 4.7.2 실시간 3D — 클릭/Space 길게 눌러 잠수 · 떼면 도약)</span>
+      </div>
+
+      <div class="pane visible" id="pane-v72">
+        <iframe id="frame-v72" src="../coastline-post-v72/index.html?lookdev=1&lang=ko" allow="autoplay; fullscreen"></iframe>
+        <span class="badge gold-b">③ 보완 v7.2 사실적 3D (하이폴리 층리·볼류메트릭 적운·클링커 선체·수중 커스틱스)</span>
+      </div>
+
+      <img src="./option_b.jpg" alt="Ghost Overlay" class="ghost-overlay" id="ghost-img">
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>🎮 <b>조작법:</b> 화면 클릭 / 터치 / <code>Space</code> 길게 누르기 = <b>수중 산호초 잠수(탄도 궤적 표시)</b> · 떼기 = <b>파도 도약 & 황동 우편링 배달</b> · <code>H</code> = 시안 구도 정지 비교</span>
+    <span>엔진: Godot 4.7.2 Native 3D (.glb + PBR + 48kHz WAV) · 브라우저 WebGL2 호환 구동 (PC Vulkan Forward+ 전용 SSR/SSAO 제외 동일 3D 지오메트리·셰이더)</span>
+  </div>
+
+<script>
+let curMode = 'v72';
+let curLang = 'ko';
+
+function ensureLoaded(id) {
+  const fr = document.getElementById(id);
+  if (fr && !fr.getAttribute('src') && fr.dataset.src) {
+    fr.setAttribute('src', fr.dataset.src);
+  }
+}
+
+function setMode(m) {
+  curMode = m;
+  document.querySelectorAll('.modes button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + m).classList.add('active');
+
+  const wrap = document.getElementById('stage-wrap');
+  const pRef = document.getElementById('pane-ref');
+  const p62 = document.getElementById('pane-v62');
+  const p72 = document.getElementById('pane-v72');
+  [pRef, p62, p72].forEach(p => { p.classList.remove('visible', 'dual-item'); });
+  wrap.classList.remove('dual');
+
+  if (m === 'ref') {
+    pRef.classList.add('visible');
+  } else if (m === 'v62') {
+    ensureLoaded('frame-v62');
+    p62.classList.add('visible');
+    setTimeout(() => document.getElementById('frame-v62').focus(), 80);
+  } else if (m === 'v72') {
+    ensureLoaded('frame-v72');
+    p72.classList.add('visible');
+    setTimeout(() => document.getElementById('frame-v72').focus(), 80);
+  } else if (m === 'dual') {
+    ensureLoaded('frame-v62');
+    ensureLoaded('frame-v72');
+    wrap.classList.add('dual');
+    p62.classList.add('dual-item');
+    p72.classList.add('dual-item');
+  }
+}
+
+function updateGhost(val) {
+  const g = document.getElementById('ghost-img');
+  g.style.opacity = (Number(val) / 100).toFixed(2);
+  document.getElementById('ghost-val').textContent = val + '%';
+}
+
+function callFrames(fn) {
+  ['frame-v62', 'frame-v72'].forEach(id => {
+    const fr = document.getElementById(id);
+    try {
+      const api = fr && fr.contentWindow && fr.contentWindow.__COASTLINE_COMPARE__;
+      if (api && api.ready) fn(api, fr.contentWindow);
+    } catch (_) {}
+  });
+}
+
+function snapBothHero() { callFrames(api => api.snapHero()); }
+function resumeBoth() { callFrames((api, win) => { api.resumePlay(); win.focus(); }); }
+function toggleLang() {
+  curLang = (curLang === 'ko') ? 'en' : 'ko';
+  callFrames(api => api.setLocale(curLang));
+}
+</script>
+</body>
+</html>
