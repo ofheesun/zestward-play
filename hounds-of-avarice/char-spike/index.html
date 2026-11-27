@@ -100,29 +100,29 @@
       <h1>하운즈 오브 애버리스 — 캐릭터 애니메이션 파이프라인 격리 검증 (방식 E vs 방식 D)</h1>
       <div class="notice">
         <strong>⚠️ 현재 격리 스파이크(프로토타입) 검증 범위 고지 (G-004 · P-019):</strong><br />
-        본 빌드는 본편 게임(v5.2.3)을 0바이트도 건드리지 않고 격리 씬(<code>res://lookdev/char_pipeline_spike.tscn</code>)에서 <strong>세라핀 1종 × 6대 모션(대기·달리기·참격·회피·피격·사망) × 8방향(360°)</strong> 구동 구조만 비교 검증하기 위한 전용 테스트 설치파일입니다. 디렉터 확정 승인 전까지 몬스터·군주·야영지 NPC 대량 전환 및 세부 얼굴/장식 고밀도 폴리싱은 보류되어 있습니다.
+        본 빌드는 본편 게임(v5.2.3)을 0바이트도 건드리지 않고 격리 씬(<code>res://lookdev/char_pipeline_spike.tscn</code>)에서 <strong>세라핀 1종 × 6대 모션(대기·달리기·참격·회피·피격·사망) × 8방향(360°)</strong> 구동 구조만 비교 검증하기 위한 전용 테스트 설치파일입니다. 테스트용 CC0 인체 메쉬(약 32.3k tris)는 파이프라인 확정 승인 후 본편 통합 시 영웅 ≤10,000 tris / 몬스터 ≤3,000 tris 예산 및 전용 얼굴·고딕 갑주 조형으로 정밀 고도화됩니다.
       </div>
       <div class="cta-row">
-        <a class="btn-primary" href="./HoundsOfAvarice_CharSpike_Win64_Setup.exe" download>⬇ HoundsOfAvarice_CharSpike_Win64_Setup.exe 다운로드 (73.4 MB · 스파이크 뷰어)</a>
+        <a class="btn-primary" href="./HoundsOfAvarice_CharSpike_Win64_Setup.exe" download>⬇ HoundsOfAvarice_CharSpike_Win64_Setup.exe 다운로드 (86.2 MB · 스파이크 뷰어)</a>
         <a class="btn-secondary" href="../download/">🛡 본편(v5.2.3) 설치파일 페이지로 이동</a>
       </div>
       <p style="margin-bottom:8px; font-size:12.5px; color:#a9a294;">
-        <strong>SHA-256:</strong> <code>506407f5114357a6d27141838d6acc84d5709dca3388749e911ce46cd72ff829</code> (미서명 인디 테스트 빌드이므로 SmartScreen 창 노출 시 <strong>[추가 정보] → [실행]</strong> 선택)
+        <strong>SHA-256:</strong> <code>e7bfba0794a965314d5e2d042825b80505630341e469bf1d9d59ac450f2a6372</code> (미서명 인디 테스트 빌드이므로 SmartScreen 창 노출 시 <strong>[추가 정보] → [실행]</strong> 선택)
       </p>
       <p style="margin-bottom:0; font-size:13px;">
-        <strong>인게임 조작:</strong> 마우스 좌클릭/드래그(360° 이동·방향 전환) · <code>Q</code>(양손 대검 참격 + 2D 먹선 검기) · <code>Space</code>(전술 회피) · <code>W</code>(피격 반응) · <code>E</code>(사망/복귀) · 상단 버튼으로 <strong>[3자 동시 비교 / 방식 E 단독 / 방식 D 단독 / 14fps·60fps 작화 전환]</strong> 즉시 비교 가능.
+        <strong>스파이크 뷰어 조작:</strong> 마우스 좌클릭/드래그(360° 이동·방향 전환) · <code>Q</code>(양손 대검 참격 + 입체 초승달 검기) · <code>Space</code>(전술 회피) · <code>[검수 전용 키: W=피격 반응 · E=사망/복귀 (본편 P-003 조작계 불변)]</code> · 상단 버튼으로 <strong>[3자 동시 비교 / 방식 E 단독 / 방식 D 단독 / 14fps·60fps 작화 전환]</strong> 즉시 비교 가능.
       </p>
     </header>
 
     <section class="card">
       <h2>1. 인게임 2K(2560×1440 · 23.5m 실전 배율) 3자 동시 비교</h2>
-      <p>좌: 기존 2D 파츠 리깅(대조군) vs 중: 방식 E (실시간 3D 골격 + 2D 먹선 애니 NPR · 14fps On-Twos) vs 우: 방식 D (8방향×10프레임 프리렌더 스프라이트 + 3D 그림자)</p>
+      <p>좌: 기존 2D 파츠 리깅(대조군) vs 중: 방식 E (실시간 3D 골격 + 2D 먹선 애니 NPR · 14fps On-Twos) vs 우: 방식 D (8방향×10프레임 선형 톤매핑 프리렌더 + 3D 그림자)</p>
       <img src="./v46_spike_01_ingame_2k_3way.webp" alt="인게임 2K 3자 동시 비교" />
     </section>
 
     <section class="card">
-      <h2>2. 근접 2.4배 검수 — 양손 대검 파지 · 발밑 3D 입체 그림자 · 2D 먹선 검기</h2>
-      <p>상단: 기립 경계 자세 및 실제 인체·망토·대검 부피에서 뻗어 나오는 입체 그림자 | 하단: 상체 82° 코일링 대검 참격 및 2D 작화 초승달 검기</p>
+      <h2>2. 근접 2.4배 검수 — 양손 대검 파지 · 철제 신발 접지 · 입체 초승달 검기</h2>
+      <p>상단: 기립 경계 자세 · 구면 법선 셀 얼굴 · 강철 신발 · 실제 3D 입체 그림자 | 하단: 상체 82° 코일링 대검 참격 및 곡면 초승달 검기</p>
       <img src="./v46_spike_02_closeup_guard_vs_slash.webp" alt="근접 2.4배 경계 및 참격 검수" />
     </section>
 
@@ -134,13 +134,13 @@
 
     <section class="card">
       <h2>4. [방식 E] 6대 필수 모션 컨택트 시트</h2>
-      <p>대기 · 달리기 A/B · 참격 예비/폭발 · 회피 · 피격 · 사망 — 양손 보조손 자루 오차 4.07cm 이내, 판금 고무 왜곡 0%, 발 접지 유지</p>
+      <p>대기 · 달리기 A/B · 참격 예비/폭발 · 전술 회피 · 기립 방어 피격 · 대검 수평 안착 사망 — 보조손 자루 오차 4.07cm 이내, 판금 고무 왜곡 0%, 발 접지 유지</p>
       <img src="./v46_spike_04_6motion_contact_sheet.webp" alt="6대 필수 모션 컨택트 시트" />
     </section>
 
     <section class="card">
       <h2>5. [방식 D] 사전 렌더링 8방향×10프레임 투명 RGBA 아틀라스 원본 (Attack)</h2>
-      <p>모션당 3200×2560 시트 × 6모션 = 캐릭터 1명·무기 1종당 총 480프레임 (장비 외형 교체 시 조합마다 480프레임 재렌더링 발생)</p>
+      <p>모션당 3840×3072 시트 × 6모션 = 캐릭터 1명·무기 1종당 총 480프레임 (고정 외형 1종 여백 절삭 BC7 압축 시 약 10~14 MB이나, 장비 외형 조합마다 ×480프레임 배증 발생)</p>
       <img src="./v46_spike_05_prerender_atlas_sample.webp" alt="방식 D 프리렌더 아틀라스 원본" />
     </section>
   </div>
