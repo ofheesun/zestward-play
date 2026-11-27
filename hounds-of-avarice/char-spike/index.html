@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>하운즈 오브 애버리스 — v4.6 캐릭터 파이프라인 격리 Technical Spike</title>
+  <style>
+    :root {
+      --bg: #080a0f;
+      --card: #121621;
+      --border: #3a3122;
+      --gold: #d9ac4b;
+      --gold-bright: #f2ca70;
+      --text: #ece6d8;
+      --muted: #b5ae9f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 50% 8%, #181d2b 0%, var(--bg) 65%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 24px 16px 48px;
+    }
+    .wrap { max-width: 1380px; margin: 0 auto; }
+    .hero {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65);
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-bright);
+      background: rgba(217, 172, 75, 0.14);
+      border: 1px solid rgba(217, 172, 75, 0.42);
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    h1 { margin: 0 0 10px; font-size: 24px; color: var(--gold-bright); }
+    p { margin: 0 0 12px; line-height: 1.6; color: var(--muted); font-size: 14.5px; }
+    .notice {
+      background: #191512;
+      border-left: 4px solid var(--gold);
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin: 14px 0 18px;
+      font-size: 13.8px;
+      color: #e6dcc8;
+      line-height: 1.55;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 14px; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(180deg, #caa042 0%, #9b7324 100%);
+      color: #0b0d12;
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: 6px;
+      border: 1px solid var(--gold-bright);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1a2030;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      padding: 13px 18px;
+      border-radius: 6px;
+      border: 1px solid #353e56;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid #2b3244;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+    .card h2 { margin: 0 0 6px; font-size: 18px; color: var(--gold-bright); }
+    .card p { margin: 0 0 12px; font-size: 14px; }
+    .card img { width: 100%; height: auto; display: block; border-radius: 4px; border: 1px solid #353e52; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="badge">ZESTWARD STUDIO OS v4.6 · ISOLATED CHARACTER PIPELINE SPIKE</span>
+      <h1>하운즈 오브 애버리스 — 캐릭터 애니메이션 파이프라인 격리 검증 (방식 E vs 방식 D)</h1>
+      <div class="notice">
+        <strong>⚠️ 현재 격리 스파이크(프로토타입) 검증 범위 고지 (G-004 · P-019):</strong><br />
+        본 빌드는 본편 게임(v5.2.3)을 0바이트도 건드리지 않고 격리 씬(<code>res://lookdev/char_pipeline_spike.tscn</code>)에서 <strong>세라핀 1종 × 6대 모션(대기·달리기·참격·회피·피격·사망) × 8방향(360°)</strong> 구동 구조만 비교 검증하기 위한 전용 테스트 설치파일입니다. 디렉터 확정 승인 전까지 몬스터·군주·야영지 NPC 대량 전환 및 세부 얼굴/장식 고밀도 폴리싱은 보류되어 있습니다.
+      </div>
+      <div class="cta-row">
+        <a class="btn-primary" href="./HoundsOfAvarice_CharSpike_Win64_Setup.exe" download>⬇ HoundsOfAvarice_CharSpike_Win64_Setup.exe 다운로드 (73.4 MB · 스파이크 뷰어)</a>
+        <a class="btn-secondary" href="../download/">🛡 본편(v5.2.3) 설치파일 페이지로 이동</a>
+      </div>
+      <p style="margin-bottom:8px; font-size:12.5px; color:#a9a294;">
+        <strong>SHA-256:</strong> <code>506407f5114357a6d27141838d6acc84d5709dca3388749e911ce46cd72ff829</code> (미서명 인디 테스트 빌드이므로 SmartScreen 창 노출 시 <strong>[추가 정보] → [실행]</strong> 선택)
+      </p>
+      <p style="margin-bottom:0; font-size:13px;">
+        <strong>인게임 조작:</strong> 마우스 좌클릭/드래그(360° 이동·방향 전환) · <code>Q</code>(양손 대검 참격 + 2D 먹선 검기) · <code>Space</code>(전술 회피) · <code>W</code>(피격 반응) · <code>E</code>(사망/복귀) · 상단 버튼으로 <strong>[3자 동시 비교 / 방식 E 단독 / 방식 D 단독 / 14fps·60fps 작화 전환]</strong> 즉시 비교 가능.
+      </p>
+    </header>
+
+    <section class="card">
+      <h2>1. 인게임 2K(2560×1440 · 23.5m 실전 배율) 3자 동시 비교</h2>
+      <p>좌: 기존 2D 파츠 리깅(대조군) vs 중: 방식 E (실시간 3D 골격 + 2D 먹선 애니 NPR · 14fps On-Twos) vs 우: 방식 D (8방향×10프레임 프리렌더 스프라이트 + 3D 그림자)</p>
+      <img src="./v46_spike_01_ingame_2k_3way.webp" alt="인게임 2K 3자 동시 비교" />
+    </section>
+
+    <section class="card">
+      <h2>2. 근접 2.4배 검수 — 양손 대검 파지 · 발밑 3D 입체 그림자 · 2D 먹선 검기</h2>
+      <p>상단: 기립 경계 자세 및 실제 인체·망토·대검 부피에서 뻗어 나오는 입체 그림자 | 하단: 상체 82° 코일링 대검 참격 및 2D 작화 초승달 검기</p>
+      <img src="./v46_spike_02_closeup_guard_vs_slash.webp" alt="근접 2.4배 경계 및 참격 검수" />
+    </section>
+
+    <section class="card">
+      <h2>3. [방식 E] 8방향(360°) 입체 회전 원근 단축 컨택트 시트</h2>
+      <p>옆모습 좌우 반전(flip_h) 눈속임 없이 남(S)~남서(SW) 전 방향에서 등판 망토·견갑·철관 투구·양손 대검이 실제 3차원으로 회전</p>
+      <img src="./v46_spike_03_8dir_turnaround_sheet.webp" alt="8방향 회전 컨택트 시트" />
+    </section>
+
+    <section class="card">
+      <h2>4. [방식 E] 6대 필수 모션 컨택트 시트</h2>
+      <p>대기 · 달리기 A/B · 참격 예비/폭발 · 회피 · 피격 · 사망 — 양손 보조손 자루 오차 4.07cm 이내, 판금 고무 왜곡 0%, 발 접지 유지</p>
+      <img src="./v46_spike_04_6motion_contact_sheet.webp" alt="6대 필수 모션 컨택트 시트" />
+    </section>
+
+    <section class="card">
+      <h2>5. [방식 D] 사전 렌더링 8방향×10프레임 투명 RGBA 아틀라스 원본 (Attack)</h2>
+      <p>모션당 3200×2560 시트 × 6모션 = 캐릭터 1명·무기 1종당 총 480프레임 (장비 외형 교체 시 조합마다 480프레임 재렌더링 발생)</p>
+      <img src="./v46_spike_05_prerender_atlas_sample.webp" alt="방식 D 프리렌더 아틀라스 원본" />
+    </section>
+  </div>
+</body>
+</html>
