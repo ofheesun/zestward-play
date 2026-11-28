@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>하운즈 오브 애버리스 — v4.6.1 정석 D+ × 시안 I 격리 Technical Spike</title>
+  <title>하운즈 오브 애버리스 — 방식 F(2.5D 셀 셰이딩) vs 정석 D+ v2(슬림 프리렌더) 상용 비교 스파이크</title>
   <style>
     :root {
       --bg: #080a0f;
@@ -96,52 +96,52 @@
 <body>
   <div class="wrap">
     <header class="hero">
-      <span class="badge">ZESTWARD STUDIO OS v4.6.1 · PRERENDER D+ × PROPOSAL I SPIKE</span>
-      <h1>하운즈 오브 애버리스 — 정석 프리렌더 D+ × 시안 I (칠흑 통먹물 × 황금 광재 금박 맥) 격리 검증</h1>
+      <span class="badge">ZESTWARD STUDIO OS v4.6.2 · CANDIDATE F (2.5D CEL) vs CANDIDATE D+ v2 SPIKE</span>
+      <h1>하운즈 오브 애버리스 — 방식 F (2.5D 다관절 원화 + 실시간 3D 법선 셀 셰이딩) vs 정석 D+ v2 (슬림 발키리 3D→2D 프리렌더) 상용 비교</h1>
       <div class="notice">
-        <strong>⚠️ 현재 격리 스파이크(PR-1 ~ PR-5) 검증 범위 고지 (G-004 · P-019):</strong><br />
-        본 빌드는 본편 게임(v5.2.3)을 0바이트도 건드리지 않고 격리 씬(<code>res://lookdev/char_pipeline_spike.tscn</code>)에서 디렉터님이 선택하신 <strong>① 정석 프리렌더 D+ (840프레임 25~32fps 고밀도 · 여백 절삭 BC7 압축 · 실시간 Skeleton3D 0개 · 캐릭터당 4 tris · 60Hz 판정 분리)</strong>와 <strong>② 시안 I (칠흑 통먹물 × 황금 광재 금박 맥 + 순수 2D 액션 FX)</strong>를 실측 검증하기 위한 설치파일입니다. 디렉터 최종 승인(PR-6) 후 고유 고딕 조형 고도화와 함께 본편 전 캐릭터·몬스터로 통합됩니다.
+        <strong>⚠️ 격리 스파이크 검증 및 미완성 범위 고지 (G-004 · P-019):</strong><br />
+        본 빌드는 본편 게임(v5.2.3)을 0바이트도 수정하지 않고 격리 씬(<code>res://lookdev/char_pipeline_spike.tscn</code>)에서 세라핀 1종 기준으로 <strong>① 방식 F: 2.5D 고딕 발키리 다관절 일러스트 + 2.5D 입체 법선(_norm) 기반 실시간 3단 셀 셰이딩(262 tris · 약 4.2 MiB VRAM · 2단 무릎/팔꿈치 굴절 · 스프링 망토/장발)</strong>과 <strong>② 정석 D+ v2: 양동이 후드 제거 장발·오픈 5첨탑 철관·슬림 흉갑 성형 3D→2D 프리렌더(4 tris · BC7 43.7 MiB · 608프레임)</strong>를 직접 비교 체험하기 위한 설치파일입니다. 디렉터 최종 선택 후 본편 캐릭터·몬스터 양산에 착수합니다.
       </div>
       <div class="cta-row">
-        <a class="btn-primary" href="./HoundsOfAvarice_CharSpike_Win64_Setup.exe" download>⬇ HoundsOfAvarice_CharSpike_Win64_Setup.exe 다운로드 (82.4 MB · v4.6.1 스파이크 뷰어)</a>
+        <a class="btn-primary" href="./HoundsOfAvarice_CharSpike_Win64_Setup.exe" download>⬇ HoundsOfAvarice_CharSpike_Win64_Setup.exe 다운로드 (84.20 MB · 방식 F vs 정석 D+ v2 비교 뷰어)</a>
         <a class="btn-secondary" href="../download/">🛡 본편(v5.2.3) 설치파일 페이지로 이동</a>
       </div>
       <p style="margin-bottom:8px; font-size:12.5px; color:#a9a294;">
-        <strong>SHA-256:</strong> <code>0d271c2c7bf7eca8ab6ec5a51ed76e323635e337756a19902f0b5e8b7a187b0c</code> (미서명 인디 테스트 빌드이므로 SmartScreen 창 노출 시 <strong>[추가 정보] → [실행]</strong> 선택)
+        <strong>SHA-256:</strong> <code>bd90b643d826b627f1a28eaf25474ebfb25700d23379815c8180738c80906f4a</code> (미서명 테스트 빌드이므로 SmartScreen 창 노출 시 <strong>[추가 정보] → [실행]</strong> 선택 · <code>Run_Compatibility_OpenGL3.bat</code> 내장)
       </p>
       <p style="margin-bottom:0; font-size:13px;">
-        <strong>스파이크 뷰어 조작:</strong> 마우스 좌클릭/드래그(360° 이동·근접 자동 참격) · <code>Q</code>(수동 대검 참격 + 순수 2D 통먹물·용융 금박 검기) · <code>Space</code>(전술 회피 캔슬 + 접지 먹연기) · <code>[검수 전용 키: W=피격 반응 · E=사망/복귀]</code> · 상단 버튼으로 <strong>[① 실전 타격 아레나(D+) / ② 3자 동시 비교 / ③ 25인 동시 교전 저사양 부하 실측(100 tris) / ④ 방식 E 단독]</strong> 즉시 체험 가능.
+        <strong>스파이크 뷰어 조작:</strong> 마우스 좌클릭/드래그(360° 이동·근접 자동 참격) · <code>Q</code>(비대칭 채찍 참격 + 150° 전방 사쿠가 검기) · <code>Space</code>(전술 회피 캔슬 + 발목 먹연기) · <code>[검수 전용 키: W=피격 반응 · E=사망/복귀]</code> · 상단 버튼으로 <strong>[① 아레나: 방식 F (2.5D 셀 셰이딩) / ② 아레나: 정석 D+ v2 (슬림 프리렌더) / ③ 4자 동시 비교 / ④ 25인 부하 실측 / ⑤ 방식 E 단독]</strong> 실시간 전환 가능.
       </p>
     </header>
 
     <section class="card">
-      <h2>1. 인게임 2K(2560×1440 · 실제 플레이 23.5m 배율) 3자 동시 비교</h2>
-      <p>좌: 기존 2D 파츠 리깅 vs 중: [정석 D+ × 시안 I] BC7 프리렌더(4 tris · Skeleton3D 0개 · 칠흑 통먹물 × 황금 광재 금박 맥) vs 우: 방식 E 실시간 3D(32.3k tris)</p>
-      <img src="./v46_spike_01_ingame_2k_3way.webp" alt="인게임 2K 3자 동시 비교" />
+      <h2>1. 인게임 2K(2560×1440 · 실제 플레이 23.5m 배율) 4자 동시 실측 대조</h2>
+      <p>① 구형 2D 파츠 vs ② 방식 F: 2.5D 다관절 원화 + 실시간 3D 법선 셀 셰이딩(262 tris · 약 4.2 MiB) vs ③ 정석 D+ v2: 슬림 발키리 프리렌더(4 tris · BC7 43.7 MiB) vs ④ 방식 E v2: 실시간 3D</p>
+      <img src="./v46_spike_01_ingame_2k_3way.webp" alt="인게임 2K 4자 동시 비교" />
     </section>
 
     <section class="card">
-      <h2>2. 근접 2.4배 검수 & PR-5 실전 타격 슬라이스 (순수 2D 통먹물·용융 금박·동맥혈 검기 & 타격 스파크)</h2>
-      <p>상단: 시안 I 칠흑 명암 블록·무광 백랍·황금 금박 맥 및 발밑 0.00mm 이중 먹물 그림자 | 하단: 광재 봉인 철갑 사냥개 표적 참격 적중 순간</p>
-      <img src="./v46_spike_02_closeup_guard_vs_slash.webp" alt="근접 2.4배 경계 및 실전 타격 슬라이스" />
+      <h2>2. 근접 1:1 정면 승부(11.2m) · 3.6배 초근접 조형 대조 · PR-5 사쿠가 참격 대조</h2>
+      <p>상단: 방식 F vs 정석 D+ v2 정면 승부 | 하단 좌: 3.6배 확대 방식 F(2D 원화 비례·3단 냉연 강철 셀·금속 하이라이트) | 하단 중: 3.6배 확대 정석 D+ v2(후드 제거 장발·오픈 철관·슬림 흉갑) | 하단 우: PR-5 실전 참격 대조</p>
+      <img src="./v46_spike_02_closeup_guard_vs_slash.webp" alt="근접 1:1 및 3.6배 확대 대조" />
     </section>
 
     <section class="card">
-      <h2>3. [정석 D+ × 시안 I] 8방향 프리렌더 스프라이트 턴어라운드 시트</h2>
-      <p>camera.unproject_position ±5° 히스테리시스 8방향 양자화 · 여백 절삭 발 접지 오차 0.00mm · 전 방향 황금 금박 맥 가독성</p>
-      <img src="./v46_spike_03_8dir_turnaround_sheet.webp" alt="정석 D+ 8방향 턴어라운드 시트" />
+      <h2>3. 8방향 턴어라운드 정면 비교 — 방식 F(상단) vs 정석 D+ v2(하단)</h2>
+      <p>상단 방식 F: 전면 3/4 + 배면 3/4 시트 전환 및 무반전 법선 3D 셀 조명 반응 | 하단 정석 D+ v2: 8방향 전 각도 실제 3D 투영 원근 단축(발 접지 오차 0.00mm)</p>
+      <img src="./v46_spike_03_8dir_turnaround_sheet.webp" alt="8방향 턴어라운드 정면 비교" />
     </section>
 
     <section class="card">
-      <h2>4. [정석 D+ × 시안 I] 6대 모션(25~32fps 고밀도) + 분리형 2D FX 3종 & 25인 동시 교전 저사양 부하 실측</h2>
-      <p>상단: 대기·달리기·참격(+검기)·회피(+접지 먹연기)·피격(+타격 스파크)·사망 | 하단: 세라핀 25기 + 순수 2D 검기 동시 출격(캐릭터 합산 단 100 tris · 실시간 Skeleton3D 0개 · 총 7,732 Prims)</p>
-      <img src="./v46_spike_04_6motion_contact_sheet.webp" alt="6대 모션 및 25인 부하 실측 시트" />
+      <h2>4. 6대 모션 탄성 비교(방식 F vs 정석 D+ v2) &amp; 25인 동시 물량전 부하 실측</h2>
+      <p>상단 방식 F(2단 무릎/팔꿈치 굴절 · 하체 압축 예비 → 2프레임 채찍 참격 → 잔심 탄성 · 스프링 망토/장발) | 중단 정석 D+ v2 | 하단 25인 동시 물량전(정석 D+ v2: 100 tris · DC 169 vs 방식 F: 6,550 tris · DC 398)</p>
+      <img src="./v46_spike_04_6motion_contact_sheet.webp" alt="6대 모션 및 25인 부하 실측 비교" />
     </section>
 
     <section class="card">
-      <h2>5. 여백 절삭 + 6px 패딩 BPTC/BC7 압축 아틀라스 & 순수 2D 액션 FX 시트 원본 검수</h2>
-      <p>총 840프레임 고밀도 샘플링: 무절삭 비압축 840.0 MiB → 여백 절삭 BC7 하드웨어 압축 54.3 MiB (15.46배 절감 · 테두리 잘림 0px · 인접 셀 번짐 0px)</p>
-      <img src="./v46_spike_05_prerender_atlas_sample.webp" alt="정석 D+ BC7 아틀라스 및 2D FX 시트 원본" />
+      <h2>5. 내부 파이프라인 해부 — 방식 F 입체 법선(_norm)·재질 마스크 vs 정석 D+ v2 BC7 아틀라스(43.7 MiB)</h2>
+      <p>좌: 방식 F 2.5D 원화 알베도 · 입체 법선(구형 안면·베벨 돔·검 능선) · 재질 마스크(약 4.2 MiB · 부위별 장비 즉시 교체 가능) | 우: 정석 D+ v2 608컷 BC7 아틀라스(769.5 MiB → 43.7 MiB) &amp; 공유 2D 사쿠가 FX 시트</p>
+      <img src="./v46_spike_05_prerender_atlas_sample.webp" alt="방식 F 법선/마스크 및 정석 D+ v2 BC7 아틀라스" />
     </section>
   </div>
 </body>
